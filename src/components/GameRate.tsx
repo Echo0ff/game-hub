@@ -5,6 +5,7 @@ interface GameRateProps {
 }
 
 const GameRate = ({ score }: GameRateProps) => {
+  if (score === 0 || score === null) return null;
   const color = score > 75 ? "green" : score > 60 ? "yellow" : "red";
   return (
     <Badge

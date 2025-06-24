@@ -1,10 +1,12 @@
-import { Spinner, Grid } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import useGameList, { type Game } from "../hooks/useGameList";
 import GameCard from "./GameCard";
 import CardSkeleton from "./CardSkeleton";
+import type { Genre } from "../hooks/useGenres";
 
-const GameList = () => {
-  const { gameList, error, isLoading } = useGameList();
+
+const GameList = ({ selectedGenre }: { selectedGenre: Genre | null }) => {
+  const { gameList, error, isLoading } = useGameList(selectedGenre);
   const templateColumns = {
     base: "1fr",
     sm: "repeat(2, 1fr)",
