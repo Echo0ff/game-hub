@@ -1,26 +1,31 @@
-import { useEffect, useState } from "react";
-import apiClient from "../services/apiclient";
+import useData from "./useData";
+
+export interface Game {
+  id: number;
+  name: string;
+  metacritic: number;
+  background_image: string;
+  platforms: Platform[];
+}
+
+export interface Platform {
+  platform: {
+    id: number;
+    slug: string;
+    name: string;
+  };
+}
+
+export interface GameListProps {
+  count: number;
+  next: string;
+  previous: string;
+  results: Game[];
+}
 
 const useGameList = () => {
-    const [gameList, setGameList] = useState([]);
-    const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(true);
-  
-    useEffect(() => {
-      setIsLoading(true);
-      apiClient
-        .get(`/games`)
-        .then((res) => {
-          setGameList(res.data.results);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          setError(err.message);
-          setIsLoading(false);
-        });
-    }, []);
-  
-    return { gameList, error, isLoading };
-}
+  const { data: gameList, error, isLoading } = useData<Game>("/games");
+  return { gameList, error, isLoading };
+};
 
 export default useGameList;

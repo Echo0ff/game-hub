@@ -1,35 +1,32 @@
-import { Spinner } from "@chakra-ui/react";
-import useGameList from "../hooks/useGameList";
-
-interface Game {
-  id: number;
-  name: string;
-  metacritic: number;
-  platforms: Platform[];
-}
-
-interface Platform {
-  platform: {
-    id: number;
-    slug: string;
-    name: string;
-  };
-}
-
-interface GameListProps {
-  gameList: Game[];
-}
+import { Spinner, Grid } from "@chakra-ui/react";
+import useGameList, { type Game } from "../hooks/useGameList";
+import GameCard from "./GameCard";
+import CardSkeleton from "./CardSkeleton";
 
 const GameList = () => {
   const { gameList, error, isLoading } = useGameList();
+  const templateColumns = {
+    base: "1fr",
+    sm: "repeat(2, 1fr)",
+    md: "repeat(3, 1fr)",
+    lg: "repeat(4, 1fr)",
+  };
 
   return (
     <>
       {error && <div>{error}</div>}
       {isLoading ? (
-        <Spinner />
+        <Grid templateColumns={templateColumns} gap={4}>
+          {Array.from({ length: 12 }).map((_, index) => (
+            <CardSkeleton key={index} />
+          ))}
+        </Grid>
       ) : (
-        gameList.map((game: Game) => <div key={game.id}>{game.name}</div>)
+        <Grid templateColumns={templateColumns} gap={4}>
+          {gameList.map((game: Game) => (
+            <GameCard key={game.id} game={game} />
+          ))}
+        </Grid>
       )}
     </>
   );
