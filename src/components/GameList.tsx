@@ -5,9 +5,14 @@ import CardSkeleton from "./CardSkeleton";
 import type { Genre } from "../hooks/useGenres";
 import type { FilterPlatform } from "../hooks/usePlatform";
 
+interface GameQuery { 
+  genre: Genre | null;
+  platform: FilterPlatform | null;
+  ordering: string | null;
+}
 
-const GameList = ({ selectedGenre, selectedPlatform }: { selectedGenre: Genre | null, selectedPlatform: FilterPlatform | null }) => {
-  const { gameList, error, isLoading } = useGameList(selectedGenre, selectedPlatform);
+const GameList = ({ gameQuery }: { gameQuery: GameQuery }) => {
+  const { gameList, error, isLoading } = useGameList(gameQuery.genre, gameQuery.platform, gameQuery.ordering);
   const templateColumns = {
     base: "1fr",
     sm: "repeat(2, 1fr)",
