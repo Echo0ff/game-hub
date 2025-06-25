@@ -1,4 +1,4 @@
-import { Card, Image } from "@chakra-ui/react";
+import { Card, Image, Box } from "@chakra-ui/react";
 import type { Game } from "../hooks/useGameList";
 import GamePlatforms from "./GamePlatforms";
 import GameRate from "./GameRate";
@@ -11,16 +11,57 @@ interface GameCardProps {
 
 const GameCard = ({ game }: GameCardProps) => {
   return (
-    <Card.Root borderRadius={10} overflow="hidden">
-      <Image src={cropImageUrl(game.background_image) || noimg} alt={game.name} />
-      <Card.Header>
-        <Card.Title fontSize="xl" fontWeight="bold">
+    <Card.Root 
+      borderRadius={12} 
+      overflow="hidden"
+      bg="white"
+      _dark={{ bg: "gray.800", borderColor: "gray.600" }}
+      shadow="sm"
+      transition="all 0.3s ease"
+      _hover={{ 
+        transform: "translateY(-6px)", 
+        shadow: "xl",
+        borderColor: "blue.200"
+      }}
+      border="1px solid"
+      borderColor="gray.200"
+    >
+      <Box position="relative">
+        <Image 
+          src={cropImageUrl(game.background_image) || noimg} 
+          alt={game.name}
+          aspectRatio="16/9"
+          objectFit="cover"
+          transition="transform 0.3s ease"
+          _hover={{ transform: "scale(1.05)" }}
+        />
+        
+        {/* 评分徽章悬浮在图片上 */}
+        <Box position="absolute" top="2" right="2">
+          <GameRate score={game.metacritic} />
+        </Box>
+      </Box>
+      
+      <Card.Body padding={5}>
+        {/* 平台图标 */}
+        <Box marginBottom={3}>
+          <GamePlatforms platforms={game.platforms} />
+        </Box>
+        
+        {/* 游戏标题 */}
+        <Card.Title 
+          fontSize="xl"
+          fontWeight="bold"
+          lineHeight="1.2"
+          // noOfLines={2}
+          color="gray.900"
+          _dark={{ color: "white" }}
+          _hover={{ color: "blue.600" }}
+          transition="color 0.2s ease"
+          cursor="pointer"
+        >
           {game.name}
         </Card.Title>
-      </Card.Header>
-      <Card.Body display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" gap={2}>
-        <GamePlatforms platforms={game.platforms} />
-        <GameRate score={game.metacritic} />
       </Card.Body>
     </Card.Root>
   );

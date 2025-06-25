@@ -25,26 +25,45 @@ const GenreList = ({ onSelectGenre }: GenreListProps) => {
       <List.Root>
         {genres.map((genre) => (
           <ListItem key={genre.id}>
-            <HStack marginLeft="10px">
+            <HStack 
+              marginLeft="10px" 
+              align="flex-start"
+              gap="2"
+              width="100%"
+              alignItems="center"
+            >
               <Image
                 src={genre.image_background}
                 alt={genre.name}
-                boxSize="32px"
+                boxSize="34px"
                 borderRadius="8px"
+                flexShrink={0}
               />
               <Button
                 fontSize="lg"
                 variant="ghost"
-                textAlign="left"
-                whiteSpace="normal"
                 onClick={() => {
                   onSelectGenre(genre)
                   setSelectedGenre(genre)
                 }}
                 fontWeight={selectedGenre === genre ? "bold" : "normal"}
                 color={selectedGenre === genre ? "green.400" : ""}
+                flex="1"
+                height="auto"
+                minHeight="40px"
+                paddingY="2"
+                justifyContent="flex-start"
+                alignItems="flex-start"
               >
-                {genre.name}
+                <Text
+                  textAlign="left"
+                  whiteSpace="normal"
+                  wordBreak="break-word"
+                  width="100%"
+                  lineHeight="1.2"
+                >
+                  {genre.name}
+                </Text>
               </Button>
             </HStack>
           </ListItem>
