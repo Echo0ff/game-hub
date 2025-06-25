@@ -9,10 +9,11 @@ interface GameQuery {
   genre: Genre | null;
   platform: FilterPlatform | null;
   ordering: string | null;
+  search: string | null;
 }
 
 const GameList = ({ gameQuery }: { gameQuery: GameQuery }) => {
-  const { gameList, error, isLoading } = useGameList(gameQuery.genre, gameQuery.platform, gameQuery.ordering);
+  const { gameList, error, isLoading } = useGameList(gameQuery.genre, gameQuery.platform, gameQuery.ordering, gameQuery.search);
   const templateColumns = {
     base: "1fr",
     sm: "repeat(2, 1fr)",

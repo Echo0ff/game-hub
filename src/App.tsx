@@ -12,6 +12,7 @@ interface GameQuery {
   genre: Genre | null;
   platform: FilterPlatform | null;
   ordering: string | null;
+  search: string | null;
 }
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
   const [gameQuery, setGameQuery] = useState<GameQuery>({
     genre: null,
     platform: null,
-    ordering: null, // name, released, added, created, updated, rating, metacritic. You can reverse the sort order adding a hyphen, for example: -released.
+    ordering: null,
+    search: null,
   });
   
   return (
@@ -38,7 +40,7 @@ function App() {
     h="100vh"
     >
       <GridItem area="nav">
-        <Navbar />
+        <Navbar onSearch={(search: string) => setGameQuery({ ...gameQuery, search })} />
       </GridItem>
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
         <GenreList onSelectGenre={(genre: Genre) => setGameQuery({ ...gameQuery, genre })} />

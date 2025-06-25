@@ -25,11 +25,11 @@ export interface GameListProps {
   results: Game[];
 }
 
-const useGameList = (selectedGenre: Genre | null, selectedPlatform: FilterPlatform | null, ordering: string | null) => {
+const useGameList = (selectedGenre: Genre | null, selectedPlatform: FilterPlatform | null, ordering: string | null, search: string | null) => {
   const { data: gameList, error, isLoading } = useData<Game>(
     "/games",
-    { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id, ordering: ordering }},
-    [selectedGenre?.id, selectedPlatform?.id, ordering]
+    { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id, ordering: ordering, search: search }},
+    [selectedGenre?.id, selectedPlatform?.id, ordering, search]
   );
   return { gameList, error, isLoading, selectedGenre };
 };
