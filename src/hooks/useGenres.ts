@@ -1,4 +1,3 @@
-import useData from "./useData";
 import { staticGenres } from "../services/staticgenres";
 
 export interface Genre {

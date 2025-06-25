@@ -8,7 +8,7 @@ interface Props {
 }
 
 const SelectPlateform = ({ onSelectPlatform }: Props) => {
-  const { platforms, error, isLoading } = usePlatforms();
+  const { platforms } = usePlatforms();
   const collection = useMemo(() => {
     // platforms 已经是 Platform[] 数组，不需要 .results
     const items = platforms || [];
