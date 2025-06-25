@@ -8,6 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import useGenres, { type Genre } from "../hooks/useGenres";
+import { useState } from "react";
 
 interface GenreListProps {
   onSelectGenre: (genre: Genre) => void;
@@ -15,6 +16,8 @@ interface GenreListProps {
 
 const GenreList = ({ onSelectGenre }: GenreListProps) => {
   const { genres, error, isLoading } = useGenres();
+  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  
   return (
     <>
       {error && <Text>{error}</Text>}
@@ -35,9 +38,11 @@ const GenreList = ({ onSelectGenre }: GenreListProps) => {
                 textAlign="left"
                 whiteSpace="normal"
                 onClick={() => {
-                  onSelectGenre(genre);
-                  console.log(genre);
+                  onSelectGenre(genre)
+                  setSelectedGenre(genre)
                 }}
+                fontWeight={selectedGenre === genre ? "bold" : "normal"}
+                color={selectedGenre === genre ? "green.400" : ""}
               >
                 {genre.name}
               </Button>

@@ -1,5 +1,6 @@
 import useData from "./useData";
 import type { Genre } from "./useGenres";
+import type { FilterPlatform } from "./usePlatform";
 
 export interface Game {
   id: number;
@@ -24,11 +25,11 @@ export interface GameListProps {
   results: Game[];
 }
 
-const useGameList = (selectedGenre: Genre | null) => {
+const useGameList = (selectedGenre: Genre | null, selectedPlatform: FilterPlatform | null) => {
   const { data: gameList, error, isLoading } = useData<Game>(
     "/games",
-    { params: { genres: selectedGenre?.id }},
-    [selectedGenre?.id]
+    { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id }},
+    [selectedGenre?.id, selectedPlatform?.id]
   );
   return { gameList, error, isLoading, selectedGenre };
 };

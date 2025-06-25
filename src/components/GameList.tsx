@@ -3,10 +3,11 @@ import useGameList, { type Game } from "../hooks/useGameList";
 import GameCard from "./GameCard";
 import CardSkeleton from "./CardSkeleton";
 import type { Genre } from "../hooks/useGenres";
+import type { FilterPlatform } from "../hooks/usePlatform";
 
 
-const GameList = ({ selectedGenre }: { selectedGenre: Genre | null }) => {
-  const { gameList, error, isLoading } = useGameList(selectedGenre);
+const GameList = ({ selectedGenre, selectedPlatform }: { selectedGenre: Genre | null, selectedPlatform: FilterPlatform | null }) => {
+  const { gameList, error, isLoading } = useGameList(selectedGenre, selectedPlatform);
   const templateColumns = {
     base: "1fr",
     sm: "repeat(2, 1fr)",

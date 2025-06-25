@@ -4,10 +4,13 @@ import GameList from "./components/GameList";
 import GenreList from "./components/GenreList";
 import { useState } from "react";
 import type { Genre } from "./hooks/useGenres";
+import SelectPlateform from "./components/SelectPlateform";
+import type { FilterPlatform } from "./hooks/usePlatform";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-
+  const [selectedPlatform, setSelectedPlatform] = useState<FilterPlatform | null>(null);
+  
   return (
     <Grid templateAreas={{
       base: `"nav" "main"`,
@@ -30,7 +33,8 @@ function App() {
         <GenreList onSelectGenre={(genre: Genre) => setSelectedGenre(genre)} />
       </GridItem>
       <GridItem area="main" overflow="auto" shadow="sm" p={2}>
-        <GameList selectedGenre={selectedGenre} />
+        <SelectPlateform onSelectPlatform={(platform: FilterPlatform) => setSelectedPlatform(platform)} />
+        <GameList selectedGenre={selectedGenre} selectedPlatform={selectedPlatform} />
       </GridItem>
     </Grid>
   );
